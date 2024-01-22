@@ -8,6 +8,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/stock_example
     username: root
     password: 1234
+    # 같은 데이터 소스를 사용 => 커넥션 풀이 부족해지는 현상으로 인해서 다른 서비스에도 영향을 끼칠수 있음
+    # 지금은 연습이니까 같은 데이터 사용할 것 => 커넥션 풀 사이즈 변경
     hikari:
       maximum-pool-size: 40
 logging:
