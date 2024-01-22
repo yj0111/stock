@@ -15,8 +15,9 @@ public class StockService {
 		this.stockRepository = stockRepository;
 	}
 
-	@Transactional
-	public void decrease(Long id, Long quantity) {
+	//@Transactional //방법 1) @Transactional 주석처리하기
+	//synchronized: 메소드에 하나의 Thread만 접근 가능
+	public synchronized void decrease(Long id, Long quantity) {
 		// 1. Stock 조회
 		// 2. 재고를 감소한 뒤
 		// 3. 갱신된 값을 저장
