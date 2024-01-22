@@ -1,6 +1,7 @@
 package com.example.stock.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.stock.domain.Stock;
@@ -19,7 +20,13 @@ public class StockService {
 	//synchronized: 메소드에 하나의 Thread만 접근 가능
 	////synchronized 문제점: 서버가 2대 이상일 경우, 데이터 접근이 여러 대에서 가능
 
-	public synchronized void decrease(Long id, Long quantity) {
+	//Optimistic, Pessimistic
+	//public synchronized void decrease(Long id, Long quantity) {
+
+	//Named Lock
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	//부모의 Transactional과 별개로 실행되어야 하기 때문에 Propagation 변경
+	public void decrease(Long id, Long quantity) {
 		// 1. Stock 조회
 		// 2. 재고를 감소한 뒤
 		// 3. 갱신된 값을 저장
@@ -29,3 +36,4 @@ public class StockService {
 		stockRepository.saveAndFlush(stock);
 	}
 }
+
